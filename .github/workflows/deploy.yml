@@ -17,9 +17,9 @@ jobs:
       - name: Cache Docker Layers
         uses: actions/cache@v4.2.0
         with:
-          path: /tmp/.buildx-cache
-          key: memo-docker-image-cache-${{ github.sha }}
-          restore-keys: memo-docker-image-cache
+          path: /tmp/.buildx-cache  # 캐시로 관리할 경로
+          key: memo-docker-image-cache-${{ github.sha }}  # 불러올 캐시 이름(식별자)
+          restore-keys: memo-docker-image-cache # 만약 캐시 key를 찾지 못 할 경우 대체할 키 패턴
 
       - name: Run SSH Agent
         uses: webfactory/ssh-agent@v0.9.0
@@ -36,6 +36,8 @@ jobs:
           echo "DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}" >> .env
           echo "MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}" >> .env
           echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> .env
+          echo "DOMAIN={{ secrets.DOMAIN }}" >> .env
+          echo "ARI_URL={{ secrets.ARI_URL }}" >> .env
 
       - name: Add Remote Server Fingerprint to Known Hosts
         run: ssh-keyscan -H -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts || true

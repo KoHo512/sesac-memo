@@ -51,11 +51,16 @@ services:
       cache_to:
         - type=local,dest=/tmp/.buildx-cache/frontend,mode=max
     image: koho011/client-image:latest
+    environment:
+      - DOMAIN=${DOMAIN}
     ports:
       - "80:80"
       - "443:443"
     networks:
       - api-network
+    volumes:
+      - /etc/letsencrypt/live/${DOMAIN}/fullchain.pem:/etc/letsencrypt/live/${DOMAIN}/fullchain.pem:ro
+      - /etc/letsencrypt/live/${DOMAIN}/privkey.pem:/etc/letsencrypt/live/${DOMAIN}/privkey.pem:ro
     env_file:
       - .env
     depends_on:
