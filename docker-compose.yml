@@ -24,6 +24,10 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile
+      cache_from:
+        - type=local,src=/tmp/.buildx-cache/backend
+      cache_to:
+        - type=local,dest=/tmp/.buildx-cache/backend,mode=max
     image: koho011/api-image:latest
     ports:
       - "8080:8080"
@@ -42,6 +46,10 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
+      cache_from:
+        - type=local,src=/tmp/.buildx-cache/frontend
+      cache_to:
+        - type=local,dest=/tmp/.buildx-cache/frontend,mode=max
     image: koho011/client-image:latest
     ports:
       - "80:80"
