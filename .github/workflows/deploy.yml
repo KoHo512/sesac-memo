@@ -69,10 +69,6 @@ jobs:
           source: "docker-compose.yml,.env"
           target: "~/github-actions-work-directory"
 
-      - name: Debug environment variables
-        run: |
-          echo "DOMAIN=${{ secrets.DOMAIN }}"
-
       - name: Pull Image & Up Container
         uses: appleboy/ssh-action@v1.0.3
         with:

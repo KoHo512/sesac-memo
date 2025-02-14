@@ -16,7 +16,7 @@ RUN npm run build
 # Run Stage
 FROM nginx
 
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY ./templates /etc/nginx/templates
 
 # Build Stage에서 빌드 결과물(정적 파일) 복사
