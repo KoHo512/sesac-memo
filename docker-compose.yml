@@ -51,8 +51,6 @@ services:
       cache_to:
         - type=local,dest=/tmp/.buildx-cache/frontend,mode=max
     image: koho011/client-image:latest
-    environment:
-      - DOMAIN=${DOMAIN}
     ports:
       - "80:80"
       - "443:443"
